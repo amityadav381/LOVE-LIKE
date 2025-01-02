@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5k3bprejft6x"]
+
+[ext_resource type="Texture2D" uid="uid://5waufa18j468" path="res://Assets/The Adventurer - Free/Idle/idle_down.png" id="1_byb3m"]
+[ext_resource type="Texture2D" uid="uid://durt3yuocc5sr" path="res://Assets/The Adventurer - Free/Idle/idle_left_down.png" id="2_e6gtu"]
+[ext_resource type="Texture2D" uid="uid://u8pmxnsd7fmx" path="res://Assets/The Adventurer - Free/Idle/idle_left_up.png" id="3_t3qse"]
+[ext_resource type="Texture2D" uid="uid://c28s06pmycfpx" path="res://Assets/The Adventurer - Free/Idle/idle_right_down.png" id="4_yyig4"]
+[ext_resource type="Texture2D" uid="uid://ctekkctq0h3s" path="res://Assets/The Adventurer - Free/Idle/idle_right_up.png" id="5_oeixd"]
+[ext_resource type="Texture2D" uid="uid://csysvl6w6yl1i" path="res://Assets/The Adventurer - Free/Idle/idle_up.png" id="6_np1tn"]
+
+[node name="Node" type="Node"]
+
+[node name="idle_down" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(568, 336)
+scale = Vector2(4, 4)
+texture = ExtResource("1_byb3m")
+hframes = 8
+frame = 7
+
+[node name="idle_left_down" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(568, 336)
+scale = Vector2(4, 4)
+texture = ExtResource("2_e6gtu")
+hframes = 8
+
+[node name="idle_left_up" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(568, 336)
+scale = Vector2(4, 4)
+texture = ExtResource("3_t3qse")
+hframes = 8
+
+[node name="idle_right_down" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(568, 336)
+scale = Vector2(4, 4)
+texture = ExtResource("4_yyig4")
+hframes = 8
+
+[node name="idle_right_up" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(568, 336)
+scale = Vector2(4, 4)
+texture = ExtResource("5_oeixd")
+hframes = 8
+
+[node name="idle_up" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(568, 336)
+scale = Vector2(4, 4)
+texture = ExtResource("6_np1tn")
+hframes = 8
