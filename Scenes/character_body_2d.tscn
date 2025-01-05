@@ -19,6 +19,8 @@ var direction_discrete: Vector2i = Vector2i.ZERO
 
 func _ready() -> void:
 	anim_tree.active = true
+	#idle_sprite.visible = false
+	#walk_sprite.visible = true
 
 func get_dir_input() -> void:
 	direction = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
@@ -44,24 +46,22 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _process(_delta: float) -> void:
-	#if velocity:
-		#anim_tree.set(\"parameters/idle/blend_position\", velocity)
 	if velocity:
 		idle_sprite.visible = false
 		walk_sprite.visible = true
 		anim_tree.set(\"parameters/conditions/is_idle\",false)
 		anim_tree.set(\"parameters/conditions/is_walking\", true)
+		anim_tree.set(\"parameters/idle/blend_position\", velocity)
+		anim_tree.set(\"parameters/walk/blend_position\", velocity) 
 		#direction_discrete.x = floor(direction.x) if (direction.x < 0) else ceili(direction.x)
 		#direction_discrete.y = floor(direction.y) if (direction.y < 0) else ceili(direction.y)
 	else:
-		walk_sprite.visible = false
 		idle_sprite.visible = true
+		walk_sprite.visible = false
 		anim_tree[\"parameters/conditions/is_idle\"] = true
 		anim_tree[\"parameters/conditions/is_walking\"] = false
 		
-	if direction != Vector2.ZERO:	
-		anim_tree.set(\"parameters/idle/blend_position\", direction)
-		anim_tree.set(\"parameters/walk/blend_position\", direction) 
+
 		
 		
 		
@@ -317,13 +317,13 @@ blend_point_0/pos = Vector2(0, 1)
 blend_point_1/node = SubResource("AnimationNodeAnimation_xguce")
 blend_point_1/pos = Vector2(0, -1)
 blend_point_2/node = SubResource("AnimationNodeAnimation_n33ve")
-blend_point_2/pos = Vector2(1, 1)
+blend_point_2/pos = Vector2(0.7, 0.5)
 blend_point_3/node = SubResource("AnimationNodeAnimation_xhn7c")
-blend_point_3/pos = Vector2(1, -1)
+blend_point_3/pos = Vector2(0.7, -0.5)
 blend_point_4/node = SubResource("AnimationNodeAnimation_vr4s0")
-blend_point_4/pos = Vector2(-1, -1)
+blend_point_4/pos = Vector2(-0.7, -0.5)
 blend_point_5/node = SubResource("AnimationNodeAnimation_ahisq")
-blend_point_5/pos = Vector2(-1, 1)
+blend_point_5/pos = Vector2(-0.7, 0.5)
 blend_mode = 1
 sync = true
 
@@ -349,15 +349,15 @@ animation = &"walk_r_d"
 blend_point_0/node = SubResource("AnimationNodeAnimation_kfwx0")
 blend_point_0/pos = Vector2(0, 1)
 blend_point_1/node = SubResource("AnimationNodeAnimation_30mch")
-blend_point_1/pos = Vector2(-1, 1)
+blend_point_1/pos = Vector2(-0.7, 0.5)
 blend_point_2/node = SubResource("AnimationNodeAnimation_kjpqh")
-blend_point_2/pos = Vector2(-1, -1)
+blend_point_2/pos = Vector2(-0.7, -0.5)
 blend_point_3/node = SubResource("AnimationNodeAnimation_16e67")
 blend_point_3/pos = Vector2(0, -1)
 blend_point_4/node = SubResource("AnimationNodeAnimation_1axdh")
-blend_point_4/pos = Vector2(1, -1)
+blend_point_4/pos = Vector2(0.7, -0.5)
 blend_point_5/node = SubResource("AnimationNodeAnimation_o4f0e")
-blend_point_5/pos = Vector2(1, 1)
+blend_point_5/pos = Vector2(0.7, 0.5)
 blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_45vmr"]
@@ -401,14 +401,15 @@ scale = Vector2(4, 4)
 texture = ExtResource("1_1n1rs")
 hframes = 8
 vframes = 6
-frame = 28
+frame = 16
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+deterministic = false
 tree_root = SubResource("AnimationNodeStateMachine_rc3wo")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_idle = false
 parameters/conditions/is_walking = false
-parameters/idle/blend_position = Vector2(-0.496212, -0.670213)
+parameters/idle/blend_position = Vector2(-0.498106, -0.691489)
 parameters/walk/blend_position = Vector2(-0.67803, -0.475728)
 
 [node name="walk_sprite" type="Sprite2D" parent="."]
