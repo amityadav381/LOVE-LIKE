@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dntboscnjabj2"]
+
+[ext_resource type="Script" path="res://Rough_Scenes/rough.gd" id="1_55w1u"]
+
+[node name="Rough" type="Node2D"]
+script = ExtResource("1_55w1u")
