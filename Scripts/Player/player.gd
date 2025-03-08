@@ -1,29 +1,54 @@
 extends CharacterBody2D
 
 
-const UP_SPEED := 200.0
-const DOWN_SPEED := 50.0
+const UP_SPEED    := 100.0
+const DOWN_SPEED  := 50.0
 
-var direction: Vector2 = Vector2.ZERO
-var last_direction: Vector2 = Vector2.ZERO
-var direction_discrete: Vector2i = Vector2i.ZERO
-var is_shooting: bool = false
+var direction         : Vector2   = Vector2.ZERO
+var last_direction    : Vector2   = Vector2.ZERO
+var direction_discrete: Vector2i  = Vector2i.ZERO
+var is_shooting       : bool      = false
+
+var input_left        :float      = 0.0
+var input_right       :float      = 0.0
+var input_up          :float      = 0.0
+var input_down        :float      = 0.0
 
 
 @onready var state_machine: PlayerStateMachine = $PlayerStateMachine 
 
 
-func get_dir_input() -> void:
-	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	direction.normalized()
+func get_dir_touch_input() -> void:
+	input_left   = Input.get_action_strength("move_left")
+	input_right  = Input.get_action_strength("move_right")
+	input_up     = Input.get_action_strength("move_up")
+	input_down   = Input.get_action_strength("move_down")
+	direction = Vector2(
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		).limit_length(1.0)
+	#print("TOUCH")
 
+
+func get_dir_joystick_input() -> void:
+	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", 0.1)
+	direction.normalized()
+	#print("JOYSTICK")
+ 
 func _unhandled_input(event: InputEvent) -> void:
-	get_dir_input()
-	state_machine.input_to_charSM(event)
+	if event is InputEventAction:
+		#print("unhandled_input called inside player script = ", event)
+		get_dir_touch_input()
+		state_machine.input_to_charSM(event)
+	if event is InputEventJoypadMotion:
+		get_dir_joystick_input()
+		state_machine.input_to_charSM(event)
 
 func _physics_process(delta: float) -> void:
-	if direction :
+	#print("PHYSICS_PROCESS DIRECTION ===== ", direction)
+	if direction:
 		velocity = direction * delta * UP_SPEED * 50
+		#print("VELOCITY = ", velocity)
 	else:
 		velocity.y = move_toward(velocity.y, 0, UP_SPEED)
 		velocity.x = move_toward(velocity.x, 0, DOWN_SPEED)
@@ -32,5 +57,10 @@ func _physics_process(delta: float) -> void:
 		
 func _process(_delta: float) -> void:
 	#Save directopm just before direction = 0
+	queue_redraw()
 	if direction != Vector2.ZERO:
 		last_direction = direction
+		
+func _draw() -> void:
+	global_position
+	draw_line(Vector2.ZERO, (direction)*100, Color.BLANCHED_ALMOND, 10.0, false)

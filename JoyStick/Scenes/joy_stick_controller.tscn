@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtst73qhwh1hv"]
+
+[ext_resource type="Texture2D" uid="uid://chb1c6qovii2b" path="res://JoyStick/Assets/JoystickSplitted.png" id="1_160dw"]
+[ext_resource type="Script" uid="uid://cn4lx021mu33e" path="res://JoyStick/Scripts/joy_stick_controller.gd" id="2_3eglq"]
+[ext_resource type="Texture2D" uid="uid://c4o2r0wtwxe0c" path="res://JoyStick/Assets/SmallHandleFilled.png" id="3_pkq17"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qc880"]
+radius = 147.16
+
+[node name="JoyStickController" type="TouchScreenButton"]
+texture_normal = ExtResource("1_160dw")
+shape = SubResource("CircleShape2D_qc880")
+script = ExtResource("2_3eglq")
+
+[node name="Knob" type="Sprite2D" parent="."]
+position = Vector2(178, 178)
+texture = ExtResource("3_pkq17")

@@ -1,6 +1,6 @@
-[gd_scene load_steps=83 format=3 uid="uid://egj2f0krwpg1"]
+[gd_scene load_steps=84 format=3 uid="uid://egj2f0krwpg1"]
 
-[ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_3nbcs"]
+[ext_resource type="Script" uid="uid://by6xhqu8aoytq" path="res://Scripts/Player/player.gd" id="1_3nbcs"]
 [ext_resource type="Texture2D" uid="uid://cgg8mlse5xg1o" path="res://Assets/The Adventurer - Premium/Idle/Normal/idle_up.png" id="2_ohgqg"]
 [ext_resource type="Texture2D" uid="uid://oipm0ivujfu7" path="res://Assets/The Adventurer - Premium/Idle/Normal/idle_down.png" id="3_3n7ii"]
 [ext_resource type="Texture2D" uid="uid://jjgpiqp51tet" path="res://Assets/The Adventurer - Premium/Idle/Normal/idle_left_down.png" id="4_hx6n0"]
@@ -21,12 +21,13 @@
 [ext_resource type="Texture2D" uid="uid://bk8ekdprta2i1" path="res://Assets/The Adventurer - Premium/Walk/Normal/walk_right_down.png" id="19_stvu1"]
 [ext_resource type="Texture2D" uid="uid://tqwwva7fn1e3" path="res://Assets/The Adventurer - Premium/Walk/Normal/walk_right_up.png" id="20_op4tt"]
 [ext_resource type="Texture2D" uid="uid://c6tdqbqemnsy" path="res://Assets/The Adventurer - Premium/Walk/Normal/walk_up.png" id="21_e0myf"]
-[ext_resource type="Script" path="res://Scripts/Player/animation_tree.gd" id="22_sqsg0"]
-[ext_resource type="Script" path="res://Scripts/Player/player_state_machine.gd" id="23_m5mk7"]
-[ext_resource type="Script" path="res://Scripts/Player/State/idle_state.gd" id="24_xqefd"]
-[ext_resource type="Script" path="res://Scripts/Player/State/walking_state.gd" id="25_lels8"]
-[ext_resource type="Script" path="res://Scripts/Player/State/shooting_state.gd" id="26_6bhbd"]
-[ext_resource type="Script" path="res://Scripts/Player/State/player_state_debug.gd" id="27_2kgq7"]
+[ext_resource type="Script" uid="uid://h62fyupagba3" path="res://Scripts/Player/animation_tree.gd" id="22_sqsg0"]
+[ext_resource type="Script" uid="uid://cm5ks63juhddt" path="res://Scripts/Player/player_state_machine.gd" id="23_m5mk7"]
+[ext_resource type="Script" uid="uid://dkpbwtqdmyl6h" path="res://Scripts/Player/State/player_physics_debug.gd" id="24_wwmao"]
+[ext_resource type="Script" uid="uid://do75m3kf0se8u" path="res://Scripts/Player/State/idle_state.gd" id="24_xqefd"]
+[ext_resource type="Script" uid="uid://dib2wvxsb236m" path="res://Scripts/Player/State/walking_state.gd" id="25_lels8"]
+[ext_resource type="Script" uid="uid://yfanby6gefj0" path="res://Scripts/Player/State/shooting_state.gd" id="26_6bhbd"]
+[ext_resource type="Script" uid="uid://qa3dyfrjbbhp" path="res://Scripts/Player/State/player_state_debug.gd" id="27_2kgq7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a8avc"]
 radius = 5.0
@@ -641,27 +642,27 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xm4nh"]
 _data = {
-"RESET": SubResource("Animation_lwccs"),
-"idle_d": SubResource("Animation_y2mnu"),
-"idle_l_d": SubResource("Animation_0lf05"),
-"idle_l_u": SubResource("Animation_0327g"),
-"idle_r_d": SubResource("Animation_vmbjf"),
-"idle_r_u": SubResource("Animation_idvaa"),
-"idle_u": SubResource("Animation_a14aj"),
-"shoot_d": SubResource("Animation_a0vkb"),
-"shoot_l": SubResource("Animation_rmcav"),
-"shoot_l_d": SubResource("Animation_7kctt"),
-"shoot_l_u": SubResource("Animation_3grly"),
-"shoot_r": SubResource("Animation_m3t8l"),
-"shoot_r_d": SubResource("Animation_r620n"),
-"shoot_r_u": SubResource("Animation_xg3v2"),
-"shoot_u": SubResource("Animation_bid3x"),
-"walk_d": SubResource("Animation_lbf27"),
-"walk_l_d": SubResource("Animation_3crh7"),
-"walk_l_u": SubResource("Animation_r3o5a"),
-"walk_r_d": SubResource("Animation_wsill"),
-"walk_r_u": SubResource("Animation_34od7"),
-"walk_u": SubResource("Animation_jfpev")
+&"RESET": SubResource("Animation_lwccs"),
+&"idle_d": SubResource("Animation_y2mnu"),
+&"idle_l_d": SubResource("Animation_0lf05"),
+&"idle_l_u": SubResource("Animation_0327g"),
+&"idle_r_d": SubResource("Animation_vmbjf"),
+&"idle_r_u": SubResource("Animation_idvaa"),
+&"idle_u": SubResource("Animation_a14aj"),
+&"shoot_d": SubResource("Animation_a0vkb"),
+&"shoot_l": SubResource("Animation_rmcav"),
+&"shoot_l_d": SubResource("Animation_7kctt"),
+&"shoot_l_u": SubResource("Animation_3grly"),
+&"shoot_r": SubResource("Animation_m3t8l"),
+&"shoot_r_d": SubResource("Animation_r620n"),
+&"shoot_r_u": SubResource("Animation_xg3v2"),
+&"shoot_u": SubResource("Animation_bid3x"),
+&"walk_d": SubResource("Animation_lbf27"),
+&"walk_l_d": SubResource("Animation_3crh7"),
+&"walk_l_u": SubResource("Animation_r3o5a"),
+&"walk_r_d": SubResource("Animation_wsill"),
+&"walk_r_u": SubResource("Animation_34od7"),
+&"walk_u": SubResource("Animation_jfpev")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bfui1"]
@@ -816,7 +817,6 @@ transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_
 graph_offset = Vector2(-137, 66.4522)
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(596, 315)
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_3nbcs")
@@ -831,7 +831,7 @@ hframes = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_xm4nh")
+&"": SubResource("AnimationLibrary_xm4nh")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="." node_paths=PackedStringArray("player")]
@@ -845,14 +845,23 @@ parameters/walk/blend_position = Vector2(-0.388621, 0.473054)
 script = ExtResource("22_sqsg0")
 player = NodePath("..")
 
-[node name="PlayerStateDebug" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+[node name="PlayerStateDebug" type="Label" parent="." node_paths=PackedStringArray("player")]
 offset_left = -56.0
-offset_top = -81.0
+offset_top = -143.0
 offset_right = 65.0
-offset_bottom = -58.0
+offset_bottom = -120.0
 text = "State:"
 script = ExtResource("27_2kgq7")
-state_machine = NodePath("../PlayerStateMachine")
+player = NodePath("../PlayerStateMachine")
+
+[node name="PlayerPhysicsDebug2" type="Label" parent="." node_paths=PackedStringArray("player")]
+offset_left = -77.0
+offset_top = -121.0
+offset_right = 44.0
+offset_bottom = -98.0
+text = "Velocity:"
+script = ExtResource("24_wwmao")
+player = NodePath("..")
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("23_m5mk7")
