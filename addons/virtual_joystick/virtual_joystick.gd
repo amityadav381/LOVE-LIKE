@@ -50,12 +50,18 @@ var is_pressed := false
 # The joystick output.
 var output := Vector2.ZERO
 
+# Debug vars
+var debug_joystick_center := Vector2.ZERO
+var debug_knob_position   := Vector2.ZERO
+
 # PRIVATE VARIABLES
 
 var _touch_index : int = -1
 
 @onready var _base := $Base
 @onready var _tip := $Base/Tip
+#@onready var _center := $Base/Center
+
 
 @onready var _base_default_position : Vector2 = _base.position
 @onready var _tip_default_position : Vector2 = _tip.position
@@ -65,6 +71,7 @@ var _touch_index : int = -1
 # FUNCTIONS
 
 func _ready() -> void:
+	#debug_joystick_center = _center.position
 	if ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"):
 		printerr("The Project Setting 'emulate_mouse_from_touch' should be set to False")
 	if not ProjectSettings.get_setting("input_devices/pointing/emulate_touch_from_mouse"):
@@ -77,10 +84,16 @@ func _ready() -> void:
 		hide()
 
 func _input(event: InputEvent) -> void:
+	#print("Virtual Joystick input workin")
 	if event is InputEventScreenTouch:
+		#print("Virtual Joystick input touch working")
 		if event.pressed:
+			#print("Virtual Joystick input touch press detected")
 			if _is_point_inside_joystick_area(event.position) and _touch_index == -1:
-				if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING or (joystick_mode == Joystick_mode.FIXED and _is_point_inside_base(event.position)):
+				#print("Virtual Joystick INSIDE ?????")
+				print("Event Position = ", event.position)
+				if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING or \
+				(joystick_mode == Joystick_mode.FIXED and _is_point_inside_base(event.position)):
 					if joystick_mode == Joystick_mode.DYNAMIC or joystick_mode == Joystick_mode.FOLLOWING:
 						_move_base(event.position)
 					if visibility_mode == Visibility_mode.WHEN_TOUCHED:
@@ -106,6 +119,8 @@ func _move_tip(new_position: Vector2) -> void:
 	_tip.global_position = new_position - _tip.pivot_offset * _base.get_global_transform_with_canvas().get_scale()
 
 func _is_point_inside_joystick_area(point: Vector2) -> bool:
+	#return Rect2(Vector2.ZERO, size).has_point(point)
+	debug_knob_position   = point
 	var x: bool = point.x >= global_position.x and point.x <= global_position.x + (size.x * get_global_transform_with_canvas().get_scale().x)
 	var y: bool = point.y >= global_position.y and point.y <= global_position.y + (size.y * get_global_transform_with_canvas().get_scale().y)
 	return x and y
@@ -117,6 +132,7 @@ func _is_point_inside_base(point: Vector2) -> bool:
 	var _base_radius = _get_base_radius()
 	var center : Vector2 = _base.global_position + _base_radius
 	var vector : Vector2 = point - center
+	
 	if vector.length_squared() <= _base_radius.x * _base_radius.x:
 		return true
 	else:
@@ -219,4 +235,9 @@ func _reset():
 				#Input.action_release(action)
 				input_evt_released(action)
 				
-				
+func _process(delta: float) -> void:
+	queue_redraw()
+func _draw() -> void:
+	#print("Tip Position GLOBAL  = ", _tip.global_position)
+	#print("Tip Position LOCAL  = ", _tip.position)
+	draw_line(_base.global_position, _tip.global_position, Color.BLUE_VIOLET, 10.0, false)

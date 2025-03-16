@@ -36,6 +36,7 @@ func get_dir_joystick_input() -> void:
 	#print("JOYSTICK")
  
 func _unhandled_input(event: InputEvent) -> void:
+	#print("Player Input working")
 	if event is InputEventAction:
 		#print("unhandled_input called inside player script = ", event)
 		get_dir_touch_input()
@@ -62,5 +63,5 @@ func _process(_delta: float) -> void:
 		last_direction = direction
 		
 func _draw() -> void:
-	global_position
+	#global_position
 	draw_line(Vector2.ZERO, (direction)*100, Color.BLANCHED_ALMOND, 10.0, false)
