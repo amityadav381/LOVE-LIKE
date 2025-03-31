@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://db7gqe0lw7fqo"]
+
+[ext_resource type="Script" uid="uid://81gj84v24kmf" path="res://Scenes/Player/bullets.gd" id="1_5cn6w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqgh4"]
+size = Vector2(4, 4)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5cn6w"]
+
+[node name="Bullets" type="Area2D"]
+script = ExtResource("1_5cn6w")
+speed = 250
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lqgh4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.38419e-07, -1.19209e-07)
+scale = Vector2(4, 4)
+texture = SubResource("CanvasTexture_5cn6w")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -11,6 +11,7 @@ func exit()->void:
 	pass
 	#switch_state.emit(self, )
 func input_event(event)->void:
+	#print("From IDLE state event = ", event)
 	if event.is_action_pressed("shooting"):
 		player.is_shooting = true
 		player.set_physics_process(false)

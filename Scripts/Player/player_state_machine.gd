@@ -20,6 +20,7 @@ func _ready() -> void:
 		current_state.enter()
 
 func input_to_charSM(event: InputEvent)->void:
+	#print("From SM state event = ", event)
 	current_state.input_event(event)
 		
 func on_state_switch(state: State, next_state:State)->void:

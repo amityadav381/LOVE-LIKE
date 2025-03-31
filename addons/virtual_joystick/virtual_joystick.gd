@@ -16,6 +16,11 @@ extends Control
 ## The max distance the tip can reach.
 @export_range(0, 500, 1) var clampzone_size : float = 70
 
+
+@onready var click_timer := $Timer
+var double_clicked := false
+signal double_tapped
+
 enum Joystick_mode {
 	FIXED, ## The joystick doesn't move.
 	DYNAMIC, ## Every time the joystick area is pressed, the joystick position is set on the touched position.
@@ -41,6 +46,8 @@ enum Visibility_mode {
 @export var action_right := "move_right"
 @export var action_up    := "move_up"
 @export var action_down  := "move_down"
+@export var action_freez := "freez"
+@export var action_shoot := "shooting"
 
 # PUBLIC VARIABLES
 
@@ -87,6 +94,7 @@ func _input(event: InputEvent) -> void:
 	#print("Virtual Joystick input workin")
 	if event is InputEventScreenTouch:
 		#print("Virtual Joystick input touch working")
+		event.double_tap
 		if event.pressed:
 			#print("Virtual Joystick input touch press detected")
 			if _is_point_inside_joystick_area(event.position) and _touch_index == -1:
@@ -98,12 +106,15 @@ func _input(event: InputEvent) -> void:
 						_move_base(event.position)
 					if visibility_mode == Visibility_mode.WHEN_TOUCHED:
 						show()
+					if(is_double_click()):
+						pass
 					_touch_index = event.index
 					_tip.modulate = pressed_color
 					_update_joystick(event.position)
 					get_viewport().set_input_as_handled()
 		elif event.index == _touch_index:
 			_reset()
+			reset_double_click()
 			if visibility_mode == Visibility_mode.WHEN_TOUCHED:
 				hide()
 			get_viewport().set_input_as_handled()
@@ -111,6 +122,20 @@ func _input(event: InputEvent) -> void:
 		if event.index == _touch_index:
 			_update_joystick(event.position)
 			get_viewport().set_input_as_handled()
+
+func is_double_click()->bool:
+	if(click_timer.is_stopped()):
+		click_timer.start()
+		double_clicked = false
+		input_evt_released(action_freez)
+		return false
+	else:
+		double_clicked = true
+		input_evt_pressed(action_freez, true, 1)
+		#double_tapped.emit()
+		return true
+func reset_double_click()->void:
+	double_clicked = false
 
 func _move_base(new_position: Vector2) -> void:
 	_base.global_position = new_position - _base.pivot_offset * get_global_transform_with_canvas().get_scale()
@@ -160,6 +185,9 @@ func _update_joystick(touch_position: Vector2) -> void:
 	
 	if use_input_actions:
 	# Release actions
+		#print("JOYSTICK OUTPUT STRENGTH = ", output.length())
+		if (output.length() < 0.85) and Input.is_action_pressed(action_shoot):
+			input_evt_released(action_shoot)
 		if output.x >= 0 and Input.is_action_pressed(action_left):
 			input_evt_released(action_left)
 			#Input.action_release(action_left)
@@ -173,6 +201,8 @@ func _update_joystick(touch_position: Vector2) -> void:
 			input_evt_released(action_down)
 			#Input.action_release(action_down)
 		# Press actions
+		if (output.length() >= 0.9) and double_clicked:
+			input_evt_pressed(action_shoot, true, 1)
 		if output.x < 0:
 			input_evt_pressed(action_left, true, -output.x)
 			#Input.action_press(action_left, -output.x)
@@ -230,7 +260,7 @@ func _reset():
 	_tip.position = _tip_default_position
 	# Release actions
 	if use_input_actions:
-		for action in [action_left, action_right, action_down, action_up]:
+		for action in [action_left, action_right, action_down, action_up, action_shoot]:
 			if Input.is_action_pressed(action):
 				#Input.action_release(action)
 				input_evt_released(action)
@@ -238,6 +268,11 @@ func _reset():
 func _process(delta: float) -> void:
 	queue_redraw()
 func _draw() -> void:
+	if double_clicked:
+		draw_circle(_base.size/2, 30, Color.WHITE, false, 2.0, true)
+	else:
+		draw_circle(_base.size/2, 30, Color.DARK_GRAY, false, 2.0, true)
+	draw_circle(_tip.position + _tip.size/2, 12, Color.BLACK, false, 2.0, true)
 	#print("Tip Position GLOBAL  = ", _tip.global_position)
 	#print("Tip Position LOCAL  = ", _tip.position)
-	draw_line(_base.global_position, _tip.global_position, Color.BLUE_VIOLET, 10.0, false)
+	#draw_line(_base.global_position, _tip.global_position, Color.BLUE_VIOLET, 10.0, false)
