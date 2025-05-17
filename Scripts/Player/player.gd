@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 
-const UP_SPEED    := 50.0
-const DOWN_SPEED  := 40.0
+const SPEED    := 50.0
+
 
 var direction         : Vector2   = Vector2.ZERO
 var last_direction    : Vector2   = Vector2.ZERO
@@ -54,11 +54,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	#print("PHYSICS_PROCESS DIRECTION ===== ", direction)
 	if direction:
-		velocity = direction * delta * UP_SPEED * 50
+		velocity = direction * delta * SPEED * 50
 		#print("VELOCITY = ", velocity)
 	else:
-		velocity.y = move_toward(velocity.y, 0, UP_SPEED)
-		velocity.x = move_toward(velocity.x, 0, DOWN_SPEED)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 	move_and_slide()
 	
 		

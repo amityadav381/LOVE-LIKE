@@ -1,0 +1,99 @@
+[gd_scene load_steps=21 format=3 uid="uid://k7nstravj2vi"]
+
+[ext_resource type="Script" uid="uid://cr11i10jr3g4i" path="res://Scripts/Enemy/animation_tree.gd" id="1_5rbcq"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u4wq1"]
+animation = &"idle_d"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5luce"]
+animation = &"idle_r_d"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xmc1t"]
+animation = &"idle_r_u"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d2jnu"]
+animation = &"idle_l_u"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x4yp7"]
+animation = &"idle_l_d"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tqvt7"]
+animation = &"idle_u"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_beese"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_u4wq1")
+blend_point_0/pos = Vector2(0, 0.9)
+blend_point_1/node = SubResource("AnimationNodeAnimation_5luce")
+blend_point_1/pos = Vector2(0.4, 0.6)
+blend_point_2/node = SubResource("AnimationNodeAnimation_xmc1t")
+blend_point_2/pos = Vector2(0.4, -0.5)
+blend_point_3/node = SubResource("AnimationNodeAnimation_d2jnu")
+blend_point_3/pos = Vector2(-0.4, -0.5)
+blend_point_4/node = SubResource("AnimationNodeAnimation_x4yp7")
+blend_point_4/pos = Vector2(-0.4, 0.6)
+blend_point_5/node = SubResource("AnimationNodeAnimation_tqvt7")
+blend_point_5/pos = Vector2(0, -0.8)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ijynf"]
+animation = &"walk_spear_d"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tj3on"]
+animation = &"walk_spear_l_d"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gtqxs"]
+animation = &"walk_spear_l_u"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x18n6"]
+animation = &"walk_spear_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f3l8n"]
+animation = &"walk_spear_r_u"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5rl8s"]
+animation = &"walk_spear_r_d"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_tqvt7"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ijynf")
+blend_point_0/pos = Vector2(0, 0.9)
+blend_point_1/node = SubResource("AnimationNodeAnimation_tj3on")
+blend_point_1/pos = Vector2(-0.3, 0.6)
+blend_point_2/node = SubResource("AnimationNodeAnimation_gtqxs")
+blend_point_2/pos = Vector2(-0.3, -0.6)
+blend_point_3/node = SubResource("AnimationNodeAnimation_x18n6")
+blend_point_3/pos = Vector2(0, -0.9)
+blend_point_4/node = SubResource("AnimationNodeAnimation_f3l8n")
+blend_point_4/pos = Vector2(0.3, -0.7)
+blend_point_5/node = SubResource("AnimationNodeAnimation_5rl8s")
+blend_point_5/pos = Vector2(0.3, 0.6)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r1w2j"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ijynf"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tj3on"]
+advance_mode = 2
+advance_expression = "is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tqvt7"]
+advance_mode = 2
+advance_expression = "!is_walking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5luce"]
+states/End/position = Vector2(855, 168)
+states/Start/position = Vector2(234, 174)
+states/idle/node = SubResource("AnimationNodeBlendSpace2D_beese")
+states/idle/position = Vector2(401, 174)
+states/walk/node = SubResource("AnimationNodeBlendSpace2D_tqvt7")
+states/walk/position = Vector2(401, 59)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_r1w2j"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_ijynf"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_tj3on"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_tqvt7")]
+
+[node name="AnimationTree" type="AnimationTree"]
+tree_root = SubResource("AnimationNodeStateMachine_5luce")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+parameters/idle/blend_position = Vector2(0.147107, -0.966574)
+parameters/walk/blend_position = Vector2(-0.542149, 0.222222)
+script = ExtResource("1_5rbcq")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://cx21elhm7el21"]
+[gd_scene load_steps=9 format=4 uid="uid://cx21elhm7el21"]
 
 [ext_resource type="PackedScene" uid="uid://egj2f0krwpg1" path="res://Scenes/Player/Player.tscn" id="1_i5b2o"]
 [ext_resource type="Texture2D" uid="uid://inefn836xr2l" path="res://Assets/The dungeon/Wall, ground & stairs/Ground.png" id="1_oqy12"]
 [ext_resource type="PackedScene" uid="uid://bl6fusjyx6myj" path="res://Scenes/Player/controller_ui.tscn" id="3_oqy12"]
 [ext_resource type="Script" uid="uid://c5n8sp446r1h8" path="res://Scripts/Debug/character_movement.gd" id="3_xkbce"]
+[ext_resource type="PackedScene" uid="uid://q7mynk3co26k" path="res://Scenes/Enemy/enemy.tscn" id="5_1276q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1276q"]
 texture = ExtResource("1_oqy12")
@@ -137,6 +138,9 @@ texture = ExtResource("1_oqy12")
 [sub_resource type="TileSet" id="TileSet_tba61"]
 sources/0 = SubResource("TileSetAtlasSource_1276q")
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1276q"]
+distance = -2.0
+
 [node name="Game" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -158,5 +162,29 @@ script = ExtResource("3_xkbce")
 player = NodePath("../Player")
 
 [node name="Controller_ui" parent="." instance=ExtResource("3_oqy12")]
+
+[node name="Enemy" parent="." instance=ExtResource("5_1276q")]
+position = Vector2(86, 167)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(7, 0)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_1276q")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(7, 1)
+rotation = -3.14159
+shape = SubResource("WorldBoundaryShape2D_1276q")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(172, 321)
+shape = SubResource("WorldBoundaryShape2D_1276q")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(172, 325)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_1276q")
 
 [connection signal="attack_interact_pressed" from="Controller_ui" to="Player" method="_on_controller_ui_attack_interact_pressed"]

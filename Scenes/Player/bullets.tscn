@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://81gj84v24kmf" path="res://Scenes/Player/bullets.gd" id="1_5cn6w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lqgh4"]
-size = Vector2(4, 4)
+size = Vector2(2, 2)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5cn6w"]
 
@@ -16,8 +16,8 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_lqgh4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.38419e-07, -1.19209e-07)
-scale = Vector2(4, 4)
+position = Vector2(2.98023e-08, -5.96046e-08)
+scale = Vector2(2, 2)
 texture = SubResource("CanvasTexture_5cn6w")
 
 [node name="Timer" type="Timer" parent="."]
