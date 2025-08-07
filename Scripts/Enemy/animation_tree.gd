@@ -10,10 +10,13 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	set_animation("slime_idle", enemy.last_direction.x)
-	set_animation("slime_walking", enemy.direction.x)
+	set_animation("slime_idle", enemy.last_direction)
+	set_animation("slime_hurt", enemy.last_direction)
+	set_animation("slime_walk", enemy.looking_at)
+	set_animation("slime_run", enemy.looking_at)
+	set_animation("slime_attack", enemy.looking_at)
 	#print("ANIMATION BLEND_POSITION: IDLE = ", enemy.last_direction.x)
-	#print("ANIMATION BLEND_POSITION: WALKING = ", enemy.direction.x)
+	#print("ANIMATION BLEND_POSITION: WALKING = ", enemy.direction_of_player.x)
 
-func set_animation(animation:StringName, direction:float)->void:
+func set_animation(animation:StringName, direction:Vector2)->void:
 	set("parameters/%s/blend_position" %animation, direction)

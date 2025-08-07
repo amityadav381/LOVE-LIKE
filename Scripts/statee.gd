@@ -1,10 +1,11 @@
 extends Node
 
 class_name statee
+var player_:Player
 
-signal finished(next_state_path: String, data: Dictionary)
+signal finished(next_state_path: String)
 
-func enter(previous_state_path: String, data := {})->void:
+func enter(previous_state_path: String)->void:
 	pass
 	
 func exit()->void:

@@ -7,7 +7,7 @@ size = Vector2(2, 2)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5cn6w"]
 
-[node name="Bullets" type="Area2D"]
+[node name="Bullets" type="Area2D" groups=["Bullets"]]
 script = ExtResource("1_5cn6w")
 speed = 250
 metadata/_edit_group_ = true
@@ -16,8 +16,8 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_lqgh4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2.98023e-08, -5.96046e-08)
-scale = Vector2(2, 2)
+position = Vector2(-3.5, 2.98023e-08)
+scale = Vector2(9, 2)
 texture = SubResource("CanvasTexture_5cn6w")
 
 [node name="Timer" type="Timer" parent="."]

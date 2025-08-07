@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 
 const SPEED    := 50.0
@@ -70,7 +71,7 @@ func _process(_delta: float) -> void:
 		
 func _draw() -> void:
 	#global_position
-	#draw_line(Vector2.ZERO, (direction)*100, Color.BLANCHED_ALMOND, 10.0, false)
+	draw_line(Vector2.ZERO, (direction)*100, Color.BLANCHED_ALMOND, 10.0, false)
 	pass
 
 func _on_controller_ui_attack_interact_pressed() -> void:
@@ -78,5 +79,7 @@ func _on_controller_ui_attack_interact_pressed() -> void:
 
 func shoot_bullets_down(position: Vector2, angle: float)->void:
 	var shot = Bullets.instantiate()
+	#print("Bullet fired Hit that bih")
 	shot.bullet_init(position, angle)
+	shot.name = "Bullets"
 	add_child(shot)
