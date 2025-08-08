@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://egj2f0krwpg1"]
+[gd_scene load_steps=84 format=3 uid="uid://egj2f0krwpg1"]
 
 [ext_resource type="Script" uid="uid://by6xhqu8aoytq" path="res://Scripts/Player/player.gd" id="1_3nbcs"]
 [ext_resource type="PackedScene" uid="uid://db7gqe0lw7fqo" path="res://Scenes/Player/bullets.tscn" id="2_7xdrn"]
@@ -981,10 +981,6 @@ advance_expression = "!is_shooting"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bi48u"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_brp7p"]
-advance_mode = 2
-advance_expression = "!is_shooting"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gmvy3"]
 advance_mode = 2
 advance_expression = "is_shooting"
@@ -998,8 +994,8 @@ states/idle_shooting/node = SubResource("AnimationNodeBlendSpace2D_15l7c")
 states/idle_shooting/position = Vector2(355, 109)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_sy5bb")
 states/walk/position = Vector2(496, 259)
-transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_0ugo3"), "walk", "End", SubResource("AnimationNodeStateMachineTransition_p3ikn"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_8l3mc"), "idle", "idle_shooting", SubResource("AnimationNodeStateMachineTransition_owfwi"), "idle_shooting", "idle", SubResource("AnimationNodeStateMachineTransition_roqud"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_bi48u"), "idle_shooting", "walk", SubResource("AnimationNodeStateMachineTransition_brp7p"), "walk", "idle_shooting", SubResource("AnimationNodeStateMachineTransition_gmvy3")]
-graph_offset = Vector2(-137, 66.4522)
+transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_0ugo3"), "walk", "End", SubResource("AnimationNodeStateMachineTransition_p3ikn"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_8l3mc"), "idle", "idle_shooting", SubResource("AnimationNodeStateMachineTransition_owfwi"), "idle_shooting", "idle", SubResource("AnimationNodeStateMachineTransition_roqud"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_bi48u"), "walk", "idle_shooting", SubResource("AnimationNodeStateMachineTransition_gmvy3")]
+graph_offset = Vector2(-125, -37.5478)
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1

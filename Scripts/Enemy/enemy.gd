@@ -82,4 +82,4 @@ func _draw() -> void:
 			print("Sector count +1")
 			wait_jump_in_cnt += 1
 		player_in_range = false
-	draw_line(Vector2.ZERO, velocity*2, Color.AQUA, 2, true)
+	draw_line(Vector2.ZERO, velocity, Color.AQUA, 2, true)
