@@ -24,6 +24,7 @@ var input_up          :float      = 0.0
 var input_down        :float      = 0.0
 
 var wait_jump_in_cnt  :int        = 0
+signal burn_zone_active(monitoring_on:bool)
 
 enum WalkingSubStates_L 
 {

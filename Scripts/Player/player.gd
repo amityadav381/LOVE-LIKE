@@ -2,13 +2,18 @@ extends CharacterBody2D
 class_name Player
 
 
-const SPEED    := 50.0
+const SPEED      := 50.0
+const HEALTH     := 100
+const HEALTH_HIT := 25
+
+var health_counter := 25
 
 
 var direction         : Vector2   = Vector2.ZERO
 var last_direction    : Vector2   = Vector2.ZERO
 var direction_discrete: Vector2i  = Vector2i.ZERO
 var is_shooting       : bool      = false
+var is_dead           : bool      = false
 
 var input_left        :float      = 0.0
 var input_right       :float      = 0.0
@@ -17,6 +22,7 @@ var input_down        :float      = 0.0
 
 
 @onready var state_machine: PlayerStateMachine = $PlayerStateMachine 
+@onready var PrgBar := $CanvasLayer/ProgressBar
 @export var Bullets : PackedScene
 
 func get_dir_touch_input() -> void:
@@ -78,8 +84,13 @@ func _on_controller_ui_attack_interact_pressed() -> void:
 	pass
 
 func shoot_bullets_down(position: Vector2, angle: float)->void:
+	#This function gets called from the AnimationPlayer
+	#I just keep forgetting so wrote it.
 	var shot = Bullets.instantiate()
-	#print("Bullet fired Hit that bih")
 	shot.bullet_init(position, angle)
 	shot.name = "Bullets"
 	add_child(shot)
+
+
+func _on_enemy_burn_zone_active(monitoring_on: bool) -> void:
+	PrgBar.update_health_return_final_health(HEALTH_HIT)

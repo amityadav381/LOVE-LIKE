@@ -5,7 +5,7 @@ class_name IdleState
 @export var shooting_state: State
 
 func enter()->void:
-	pass
+	player.velocity = Vector2.ZERO
 	
 func exit()->void:
 	pass

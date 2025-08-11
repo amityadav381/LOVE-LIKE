@@ -1587,7 +1587,9 @@ shape = SubResource("CircleShape2D_xmc1t")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone"]
 shape = SubResource("CircleShape2D_5luce")
 
-[node name="BurnZone" type="Area2D" parent="."]
+[node name="BurnZone" type="Area2D" parent="." groups=["Fire"]]
+monitoring = false
+monitorable = false
 script = ExtResource("2_5luce")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BurnZone"]
@@ -1648,5 +1650,4 @@ enemy = NodePath("..")
 [connection signal="body_entered" from="KillZone" to="EnemyStateMachine" method="_on_kill_zone_body_entered"]
 [connection signal="body_entered" from="DetectZone" to="EnemyStateMachine" method="_on_detect_zone_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="EnemyStateMachine" method="_on_detect_zone_body_exited"]
-[connection signal="burn_zone_active" from="EnemyStateMachine/Attack" to="BurnZone" method="_on_attack_burn_zone_active"]
 [connection signal="timeout" from="Timer" to="EnemyStateMachine" method="_on_timer_timeout"]

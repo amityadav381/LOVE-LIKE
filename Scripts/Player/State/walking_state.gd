@@ -6,7 +6,7 @@ class_name WalkingState
 
 
 func exit():
-	pass
+	player.velocity = Vector2.ZERO
 	
 func enter():
 	pass
@@ -16,7 +16,6 @@ func input_event(event)->void:
 		#print("STATE SWITCH STARTED FROM WALKING TO IDLE")
 		switch_state.emit(self, idle_state)
 	if event.is_action_pressed("shooting"):
-		player.is_shooting = true
 		player.set_physics_process(false)
 		#print("STATE SWITCH STARTED FROM IDLE TO SHOOTING")
 		switch_state.emit(self, shooting_state)

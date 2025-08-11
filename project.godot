@@ -36,6 +36,7 @@ enabled=PackedStringArray("res://addons/virtual_joystick/plugin.cfg")
 
 Bullets=""
 Enemies=""
+Fire=""
 
 [input]
 
