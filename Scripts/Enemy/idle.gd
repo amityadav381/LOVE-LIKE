@@ -11,7 +11,7 @@ func enter(previous_state_path: String) -> void:
 		finished.emit(WALKING)
 	else:
 		enemy.timer.set_timer(2)
-	enemy._WSS_L_ = enemy.WalkingSubStates_L.CIRCLING
+	#enemy._WSS_L_ = enemy.WalkingSubStates_L.CIRCLING
 	#print("entered IDLE state. Enemy name = ", enemy.name)
 
 func update(_delta: float) -> void:

@@ -1,6 +1,6 @@
 extends EnemyState
 class_name Walking
-var EnemySubState:int = 0
+#var EnemySubState:int = 0
 
 
 func exit()->void:
@@ -15,14 +15,14 @@ func enter(previous_state_path: String, data := {}) -> void:
 	enemy.is_walking = true
 	if player_ == null:
 		enemy.timer.set_timer(5)
-	print("entered WALKING state EnemySubState = ", EnemySubState)
+	#print("entered WALKING state EnemySubState = ", EnemySubState)
 
 func update(_delta: float) -> void:
 	if (jump_in_cnt == enemy.wait_jump_in_cnt):
 		enemy.wait_jump_in_cnt = 0
-		print("ENEMY GOING FOR ATTACK!!!!!!!!!!!!!!!! jmp_cnt = ", enemy.wait_jump_in_cnt)
 		enemy._WSS_L_ = enemy.WalkingSubStates_L.GO_FOR_ATTACK
 		enemy.position_before_attack = enemy.position
+		print("ENEMY GOING FOR ATTACK  pos = ", enemy.position_before_attack)
 
 
 func physics_update(_delta: float)->void:
@@ -39,7 +39,7 @@ func physics_update(_delta: float)->void:
 		elif (enemy._WSS_L_ == enemy.WalkingSubStates_L.RETRACT):
 			#print("Entered in WalkingSubStates.RETRACT")
 			var temp                    := (enemy.position_before_attack - enemy.position)
-			enemy.looking_at                    = temp.normalized()
+			enemy.looking_at             = temp.normalized()
 			if(temp.length() < 0.5):
 				#print("Switching to WalkingSubStates.CIRCLING")
 				enemy._WSS_L_ = enemy.WalkingSubStates_L.CIRCLING

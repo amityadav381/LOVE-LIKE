@@ -3,11 +3,11 @@ class_name Attack
 
 
 func exit()->void:
-	print("left ATTACK state")
 	enemy.is_attacking = false
 	enemy.burn_zone_active.emit(false)
 	if enemy._WSS_L_ == enemy.WalkingSubStates_L.GO_FOR_ATTACK:
 		enemy._WSS_L_ = enemy.WalkingSubStates_L.RETRACT
+	print("left ATTACK state = ", enemy._WSS_L_)
 
 
 func enter(previous_state_path: String) -> void:

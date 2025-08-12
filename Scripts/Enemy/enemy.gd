@@ -84,3 +84,5 @@ func _draw() -> void:
 			wait_jump_in_cnt += 1
 		player_in_range = false
 	draw_line(Vector2.ZERO, velocity, Color.AQUA, 2, true)
+	draw_line(Vector2.ZERO, (position_before_attack - position), Color.CORAL, 2, true)
+	#draw_circle(position_before_attack, 5, Color.CHARTREUSE, false, true)

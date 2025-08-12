@@ -1643,6 +1643,8 @@ script = ExtResource("19_x4yp7")
 offset_left = -29.0
 offset_right = 30.0
 offset_bottom = 23.0
+theme_override_font_sizes/font_size = 4
+text = "Just Checking"
 script = ExtResource("16_5luce")
 enemy = NodePath("..")
 
