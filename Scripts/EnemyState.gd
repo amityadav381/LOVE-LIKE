@@ -18,7 +18,7 @@ func _ready() -> void:
 	print("AWAIT_READY_CLEARED")
 	enemy = owner as Enemy
 	rot_clock = randi_range(0, 1) * 2 - 1  # Converts 0 → -1 and 1 → 1
-	jump_in_cnt = randi_range(3,6)
+	jump_in_cnt = randi_range(2,5)
 	print("ENEMY_JUMP_COUNT = ", jump_in_cnt, "From instance = ",self)
 	x_rot = rot_clock
 	y_rot = -rot_clock

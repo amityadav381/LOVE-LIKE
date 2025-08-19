@@ -7,9 +7,10 @@ class_name WalkingState
 
 func exit():
 	player.velocity = Vector2.ZERO
+	print("Player state exit WALKING")
 	
 func enter():
-	pass
+	print("Player state enter WALKING")
 	
 func input_event(event)->void:
 	if player.direction == Vector2.ZERO:

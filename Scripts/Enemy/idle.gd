@@ -7,6 +7,8 @@ func exit()->void:
 	
 func enter(previous_state_path: String) -> void:
 	print("enter IDLE state")
+	if enemy._WSS_L_ == enemy.WalkingSubStates_L.DEAD:
+		enemy.is_dead = true
 	if player_ != null:
 		finished.emit(WALKING)
 	else:

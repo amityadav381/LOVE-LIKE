@@ -1,8 +1,9 @@
-[gd_scene load_steps=87 format=3 uid="uid://q7mynk3co26k"]
+[gd_scene load_steps=95 format=3 uid="uid://q7mynk3co26k"]
 
 [ext_resource type="Script" uid="uid://bhamujdhjbbhv" path="res://Scripts/Enemy/enemy.gd" id="1_r1w2j"]
 [ext_resource type="Script" uid="uid://bsd8w28ndxfc8" path="res://Scripts/Enemy/burn_zone.gd" id="2_5luce"]
 [ext_resource type="Texture2D" uid="uid://cmnsfw46n8jxu" path="res://Assets/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime3/Attack/Slime3_Attack_full.png" id="2_kiqm3"]
+[ext_resource type="Script" uid="uid://cihp8xjn0j6jg" path="res://Scripts/Enemy/progress_bar.gd" id="2_xmc1t"]
 [ext_resource type="Texture2D" uid="uid://ksdxtn1xx1jy" path="res://Assets/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime3/Death/Slime3_Death_full.png" id="3_6j3ko"]
 [ext_resource type="Texture2D" uid="uid://3x8rv3bblcu8" path="res://Assets/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime3/Idle/Slime3_Idle_full.png" id="4_2chwy"]
 [ext_resource type="Texture2D" uid="uid://djgg7a2uk6ndd" path="res://Assets/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime3/Run/Slime3_Run_full.png" id="5_beese"]
@@ -345,6 +346,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_5luce"]
 resource_name = "slime_death_l"
@@ -396,6 +411,20 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_xmc1t"]
@@ -449,6 +478,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_u4wq1"]
 resource_name = "slime_death_u"
@@ -500,6 +543,20 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_2u43t"]
@@ -1402,6 +1459,29 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_myvan")
 blend_point_3/pos = Vector2(-0.6, 0)
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7ln3t"]
+animation = &"slime_hurt_d"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8kmt2"]
+animation = &"slime_death_r"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ss2dq"]
+animation = &"slime_death_l"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h48s5"]
+animation = &"slime_death_u"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_k0qr5"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_7ln3t")
+blend_point_0/pos = Vector2(0, 0.9)
+blend_point_1/node = SubResource("AnimationNodeAnimation_8kmt2")
+blend_point_1/pos = Vector2(0.5, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ss2dq")
+blend_point_2/pos = Vector2(-0.5, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_h48s5")
+blend_point_3/pos = Vector2(0, -0.8)
+blend_mode = 1
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2u43t"]
 animation = &"slime_hurt_d"
 
@@ -1549,11 +1629,21 @@ advance_expression = "is_hurt"
 advance_mode = 2
 advance_expression = "!is_hurt"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tj3on"]
+advance_mode = 2
+advance_expression = "is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gtqxs"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_r1w2j"]
 states/End/position = Vector2(923, 232)
 states/Start/position = Vector2(251, 506)
 states/slime_attack/node = SubResource("AnimationNodeBlendSpace2D_r1w2j")
 states/slime_attack/position = Vector2(762, 232)
+states/slime_death/node = SubResource("AnimationNodeBlendSpace2D_k0qr5")
+states/slime_death/position = Vector2(756, 118.68)
 states/slime_hurt/node = SubResource("AnimationNodeBlendSpace2D_7ln3t")
 states/slime_hurt/position = Vector2(570, 415.681)
 states/slime_idle/node = SubResource("AnimationNodeBlendSpace2D_d2jnu")
@@ -1562,13 +1652,24 @@ states/slime_run/node = SubResource("AnimationNodeBlendSpace2D_tj3on")
 states/slime_run/position = Vector2(470, 100)
 states/slime_walk/node = SubResource("AnimationNodeBlendSpace2D_g6g8b")
 states/slime_walk/position = Vector2(134, 232)
-transitions = ["Start", "slime_idle", SubResource("AnimationNodeStateMachineTransition_3nhpm"), "slime_walk", "slime_run", SubResource("AnimationNodeStateMachineTransition_r1w2j"), "slime_run", "slime_walk", SubResource("AnimationNodeStateMachineTransition_u4wq1"), "slime_idle", "slime_walk", SubResource("AnimationNodeStateMachineTransition_5luce"), "slime_idle", "slime_run", SubResource("AnimationNodeStateMachineTransition_xmc1t"), "slime_walk", "slime_idle", SubResource("AnimationNodeStateMachineTransition_d2jnu"), "slime_run", "slime_idle", SubResource("AnimationNodeStateMachineTransition_x4yp7"), "slime_run", "slime_attack", SubResource("AnimationNodeStateMachineTransition_2u43t"), "slime_attack", "slime_idle", SubResource("AnimationNodeStateMachineTransition_tqvt7"), "slime_idle", "slime_hurt", SubResource("AnimationNodeStateMachineTransition_8kmt2"), "slime_walk", "slime_hurt", SubResource("AnimationNodeStateMachineTransition_ss2dq"), "slime_run", "slime_hurt", SubResource("AnimationNodeStateMachineTransition_h48s5"), "slime_attack", "slime_hurt", SubResource("AnimationNodeStateMachineTransition_k0qr5"), "slime_hurt", "slime_idle", SubResource("AnimationNodeStateMachineTransition_ijynf")]
-graph_offset = Vector2(-9, 95.6805)
+transitions = ["Start", "slime_idle", SubResource("AnimationNodeStateMachineTransition_3nhpm"), "slime_walk", "slime_run", SubResource("AnimationNodeStateMachineTransition_r1w2j"), "slime_run", "slime_walk", SubResource("AnimationNodeStateMachineTransition_u4wq1"), "slime_idle", "slime_walk", SubResource("AnimationNodeStateMachineTransition_5luce"), "slime_idle", "slime_run", SubResource("AnimationNodeStateMachineTransition_xmc1t"), "slime_walk", "slime_idle", SubResource("AnimationNodeStateMachineTransition_d2jnu"), "slime_run", "slime_idle", SubResource("AnimationNodeStateMachineTransition_x4yp7"), "slime_run", "slime_attack", SubResource("AnimationNodeStateMachineTransition_2u43t"), "slime_attack", "slime_idle", SubResource("AnimationNodeStateMachineTransition_tqvt7"), "slime_idle", "slime_hurt", SubResource("AnimationNodeStateMachineTransition_8kmt2"), "slime_walk", "slime_hurt", SubResource("AnimationNodeStateMachineTransition_ss2dq"), "slime_run", "slime_hurt", SubResource("AnimationNodeStateMachineTransition_h48s5"), "slime_attack", "slime_hurt", SubResource("AnimationNodeStateMachineTransition_k0qr5"), "slime_hurt", "slime_idle", SubResource("AnimationNodeStateMachineTransition_ijynf"), "slime_idle", "slime_death", SubResource("AnimationNodeStateMachineTransition_tj3on"), "slime_death", "End", SubResource("AnimationNodeStateMachineTransition_gtqxs")]
+graph_offset = Vector2(-54, 57.6805)
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemies"]]
 position = Vector2(85, 180)
 script = ExtResource("1_r1w2j")
 metadata/_edit_group_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.5
+offset_top = -36.32
+offset_right = 16.24
+offset_bottom = -9.32
+grow_horizontal = 2
+script = ExtResource("2_xmc1t")
 
 [node name="BulletSensitive" type="Area2D" parent="." groups=["Enemies"]]
 
@@ -1613,6 +1714,7 @@ tree_root = SubResource("AnimationNodeStateMachine_r1w2j")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/slime_attack/blend_position = Vector2(0.833013, 0.030303)
+parameters/slime_death/blend_position = Vector2(0, 0)
 parameters/slime_hurt/blend_position = Vector2(0.0017544, 0.890909)
 parameters/slime_idle/blend_position = Vector2(-0.520154, -0.0183486)
 parameters/slime_run/blend_position = Vector2(-0.525912, 0.16707)
@@ -1640,6 +1742,7 @@ one_shot = true
 script = ExtResource("19_x4yp7")
 
 [node name="Logs" type="Label" parent="." node_paths=PackedStringArray("enemy")]
+visible = false
 offset_left = -29.0
 offset_right = 30.0
 offset_bottom = 23.0

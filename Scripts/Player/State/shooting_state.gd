@@ -6,9 +6,11 @@ class_name ShootingState
 
 func enter()->void:
 	player.is_shooting = true
+	print("Player state enter SHOOTING")
 
 func exit()->void:
 	player.is_shooting = false
+	print("Player state exit SHOOTING")
 	
 func input_event(event: InputEvent)->void:
 	if event.is_action_released("shooting"):

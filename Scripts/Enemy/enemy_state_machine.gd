@@ -72,3 +72,10 @@ func _on_detect_zone_body_exited(body: Node2D) -> void:
 func _on_bullet_sensitive_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullets"):
 		_transition_to_next_state("Hurt")
+		var remaining_health = get_parent().prgs_bar.update_health_return_final_health(get_parent().TAKE_DAMAGE)
+		if remaining_health == 0:
+			print("ENEMY GONE!!!")
+			get_parent()._WSS_L_ = get_parent().WalkingSubStates_L.DEAD
+			_transition_to_next_state("Idle")
+			
+		

@@ -6,6 +6,10 @@ const DEFAULT_SPEED    := 35.0
 const CHASE_SPEED      := 40.0
 var speed              := DEFAULT_SPEED
 
+const TAKE_DAMAGE := 25
+var is_dead :bool = false
+
+
 var direction_of_player   : Vector2   = Vector2.ZERO
 var looking_at            : Vector2   = Vector2.ZERO
 var last_direction        : Vector2   = Vector2.ZERO
@@ -31,13 +35,15 @@ enum WalkingSubStates_L
 	INVALID = 0,
 	CIRCLING,
 	GO_FOR_ATTACK,
-	RETRACT
+	RETRACT,
+	DEAD
 }
 var _WSS_L_  :WalkingSubStates_L = WalkingSubStates_L.INVALID
 
 @onready var state_machine: EnemyStateMachine = $EnemyStateMachine
 @onready var timer : Timer = $Timer
 @onready var enemy_sprite: Sprite2D = $Sprite2D
+@onready var prgs_bar :ProgressBar = $ProgressBar
 @onready var Player: CharacterBody2D = null
 @export var Bullets : PackedScene
 
@@ -83,6 +89,6 @@ func _draw() -> void:
 			print("Sector count +1")
 			wait_jump_in_cnt += 1
 		player_in_range = false
-	draw_line(Vector2.ZERO, velocity, Color.AQUA, 2, true)
-	draw_line(Vector2.ZERO, (position_before_attack - position), Color.CORAL, 2, true)
+	#draw_line(Vector2.ZERO, velocity, Color.AQUA, 2, true)
+	#draw_line(Vector2.ZERO, (position_before_attack - position), Color.CORAL, 2, true)
 	#draw_circle(position_before_attack, 5, Color.CHARTREUSE, false, true)

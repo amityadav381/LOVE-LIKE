@@ -9,6 +9,7 @@ func _process(_delta: float) -> void:
 	set_animation("idle", player.last_direction)
 	set_animation("walk",player.velocity)
 	set_animation("idle_shooting",player.last_direction)
+	set_animation("death",player.last_direction)
 
 #func set_condition(condition:StringName, value:bool)->void:
 	#set("parameters/conditions/%s" %condition, value)

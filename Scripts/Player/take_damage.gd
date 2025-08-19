@@ -5,10 +5,10 @@ class_name TakeDamage
 @export var walking_state: State
 
 func enter()->void:
-	pass
+	print("Player state enter TAKEDAMAGE")
 
 func exit()->void:
-	pass
+	print("Player state exit TAKEDAMAGE")
 
 func input_event(event: InputEvent)->void:
 	if event.is_action_released(""):

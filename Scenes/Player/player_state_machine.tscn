@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://k8768qt6ld8d"]
+
+[ext_resource type="Script" uid="uid://cm5ks63juhddt" path="res://Scripts/Player/player_state_machine.gd" id="1_ex2ka"]
+[ext_resource type="Script" uid="uid://do75m3kf0se8u" path="res://Scripts/Player/State/idle_state.gd" id="2_1yemi"]
+[ext_resource type="Script" uid="uid://dib2wvxsb236m" path="res://Scripts/Player/State/walking_state.gd" id="3_2xkut"]
+[ext_resource type="Script" uid="uid://yfanby6gefj0" path="res://Scripts/Player/State/shooting_state.gd" id="4_blcb8"]
+[ext_resource type="Script" uid="uid://mumerhschopt" path="res://Scripts/Player/take_damage.gd" id="5_q1qym"]
+[ext_resource type="Script" uid="uid://12eswuyq6315" path="res://Scripts/Player/State/reloading.gd" id="6_pv05p"]
+
+[node name="PlayerStateMachine" type="Node" node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_ex2ka")
+current_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="." node_paths=PackedStringArray("walking_state", "shooting_state")]
+script = ExtResource("2_1yemi")
+walking_state = NodePath("../WalkingState")
+shooting_state = NodePath("../ShootingState")
+
+[node name="WalkingState" type="Node" parent="." node_paths=PackedStringArray("idle_state", "shooting_state")]
+script = ExtResource("3_2xkut")
+idle_state = NodePath("../IdleState")
+shooting_state = NodePath("../ShootingState")
+
+[node name="ShootingState" type="Node" parent="." node_paths=PackedStringArray("idle_state", "walking_state")]
+script = ExtResource("4_blcb8")
+idle_state = NodePath("../IdleState")
+walking_state = NodePath("../WalkingState")
+
+[node name="TakeDamage" type="Node" parent="."]
+script = ExtResource("5_q1qym")
+
+[node name="Reloading" type="Node" parent="."]
+script = ExtResource("6_pv05p")

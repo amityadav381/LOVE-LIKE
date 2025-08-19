@@ -2,7 +2,7 @@ extends Node2D
 
 var childd1 := 10
 var childd1_phy := 10
-const CNT_ := 100000000
+const CNT_ := 1000
 func _ready() -> void:
 	print("_ready() of ChildD1 Node")
 

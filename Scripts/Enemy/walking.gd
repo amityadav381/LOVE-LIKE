@@ -30,6 +30,7 @@ func physics_update(_delta: float)->void:
 	enemy.looking_at                = Vector2.ZERO
 	if player_ != null:
 		enemy.direction_of_player              = player_.position - enemy.position
+		#TODO: Should replace this with a switch case
 		if (enemy._WSS_L_ == enemy.WalkingSubStates_L.CIRCLING):
 			#print("Entered WalkingSubStates.CIRCLING")
 			enemy.looking_at                    = Vector2(x_rot*enemy.direction_of_player.normalized().y, \

@@ -5,10 +5,11 @@ class_name IdleState
 @export var shooting_state: State
 
 func enter()->void:
+	print("Player state enter IDLE")
 	player.velocity = Vector2.ZERO
 	
 func exit()->void:
-	pass
+	print("Player state exit IDLE")
 	#switch_state.emit(self, )
 func input_event(event)->void:
 	#print("From IDLE state event = ", event)
