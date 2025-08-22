@@ -159,9 +159,6 @@ position = Vector2(85, 174)
 [node name="Enemy" parent="." instance=ExtResource("4_tba61")]
 position = Vector2(75, 99)
 
-[node name="Enemy2" parent="." instance=ExtResource("4_tba61")]
-position = Vector2(144, 168)
-
 [node name="Enemy3" parent="." instance=ExtResource("4_tba61")]
 position = Vector2(63, 244)
 
@@ -199,6 +196,5 @@ rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_1276q")
 
 [connection signal="burn_zone_active" from="Enemy" to="Player" method="_on_enemy_burn_zone_active"]
-[connection signal="burn_zone_active" from="Enemy2" to="Player" method="_on_enemy_burn_zone_active"]
 [connection signal="burn_zone_active" from="Enemy3" to="Player" method="_on_enemy_burn_zone_active"]
 [connection signal="attack_interact_pressed" from="Controller_ui" to="Player" method="_on_controller_ui_attack_interact_pressed"]

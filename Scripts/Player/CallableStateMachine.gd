@@ -29,17 +29,21 @@ func set_initial_state(state_callable: Callable):
 
 func update(delta: float):
 	if current_state != null:
+		print("updateupdate State:: ", current_state)
 		(state_dictionary[current_state].normal as Callable).call(delta)
 
 func handle_input(event: InputEvent):
 	if current_state != null:
+		print("handle_inputhandle_input State:: ", current_state)
+		print("handle_inputhandle_input Event:: ", event)
 		(state_dictionary[current_state].input as Callable).call(event)
 
 
 func change_state(state_callable: Callable):
 	var state_name = state_callable.get_method()
+	print("SWITCHING FROM -----",current_state," TO -----",state_name)
 	if state_dictionary.has(state_name):
-		_set_state.call_deferred(state_name)
+		_set_state.call(state_name)
 	else:
 		push_warning("No state with name " + state_name)
 

@@ -60,7 +60,7 @@ func _on_timer_timeout() -> void:
 		"hurt_state":
 			c_sm.change_state(idle_state)
 		"reload_state":
-			c_sm.change_state(walking_state)
+			c_sm.change_state(idle_state)
 ################################ IDLE ##########################################
 func enter_idle_state()->void:
 	velocity = Vector2.ZERO
@@ -94,7 +94,8 @@ func exit_walking_state()->void:
 	pass
 
 func input_walking_state(event: InputEvent)->void:
-	pass
+	if event.is_action_pressed("freez"):
+		c_sm.change_state(lockin_state)
 
 ############################ LOCK-IN ##########################################
 func enter_lockin_state()->void:
@@ -126,7 +127,7 @@ func exit_shooting_state()->void:
 
 func input_shooting_state(event: InputEvent)->void:
 	if event.is_action_released("shooting"):
-		c_sm.change_state(lockin_state)
+		c_sm.change_state(idle_state)
 	elif event.is_action_released("freez"):
 		c_sm.change_state(idle_state)
 ############################# HURT #############################################
@@ -192,11 +193,11 @@ func get_dir_joystick_input() -> void:
 	#print("JOYSTICK")
  
 func _unhandled_input(event: InputEvent) -> void:
-	print("Player Main Input working = ", event)
 	if event is InputEventAction:
 		#print("unhandled_input called inside player script = ", event)
 		get_dir_touch_input()
 		#state_machine.input_to_charSM(event)
+		#print("EVENT:: ", event," CURR_STATE::",c_sm.current_state)
 		c_sm.handle_input(event)
 	if event is InputEventJoypadMotion or InputEventJoypadButton:
 		#print("Player Controller Input working = ", event)
